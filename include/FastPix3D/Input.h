@@ -1,35 +1,30 @@
 #include "main.h"
+#include <map>
 
 class  Input
 {
 private:
-	static bool Quit;
-	static int32 MouseX;
-	static int32 MouseY;
-	static int32 MouseZ;
-	static int32 MouseXSpeed;
-	static int32 MouseYSpeed;
-	static int32 MouseZSpeed;
-	static bool *MouseDown;
-	static bool *KeyDown;
+	static int32 JoyX[2];
+	static int32 JoyY[2];
+	static int32 JoyXSpeed[2];
+	static int32 JoyYSpeed[2];
+
+	static std::map<pros::controller_digital_e_t,bool> KeyDown;
 
 	static void Initialize();
 	static void Destroy();
 public:
 	static void Clear();
-	static void Update();
+	static void Update(int32 dt);
 
-	static bool getQuit();
-	static int32 getMouseX();
-	static int32 getMouseY();
-	static int32 getMouseZ();
-	static int32 getMouseXSpeed();
-	static int32 getMouseYSpeed();
-	static int32 getMouseZSpeed();
-	static bool getMouseDown(pros::controller_digital_e_t mouseButton);
+	static int32 getJoyX(int32 joy);
+	static int32 getJoyY(int32 joy);
+	static int32 getJoyXSpeed(int32 joy);
+	static int32 getJoyYSpeed(int32 joy);
+
 	static bool getKeyDown(pros::controller_digital_e_t key);
 
-	static void setMousePosition(int32 x, int32 y, bool updateMouseSpeed);
+	static void setJoyPosition(int32 x, int32 y, int32 joy, bool updateMouseSpeed);
 
 	friend class Device;
 };

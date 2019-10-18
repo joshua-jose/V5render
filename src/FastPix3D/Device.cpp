@@ -14,10 +14,7 @@ void Device::Initialize(int32 width, int32 height)
 {
 	Width = width;
 	Height = height;
-	//SDL_Init(SDL_INIT_VIDEO);
-	//Window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Width, Height, SDL_WINDOW_SHOWN);
-	//Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED);
-	//ScreenTexture = SDL_CreateTexture(Renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STREAMING, Width, Height);
+
   framebuffer = lv_vdb_get();
 
   memset(framebuffer->buf, 0, LV_HOR_RES * LV_VER_RES * sizeof(lv_color_t));
@@ -26,6 +23,7 @@ void Device::Initialize(int32 width, int32 height)
 	StencilBuffer = new sbyte[Width * Height];
 
 	//setTitle("FastPix3D");
+
 	Input::Initialize();
 	RenderStates::Initialize();
 	Light::Initialize();
@@ -65,9 +63,6 @@ void Device::ClearStencilBuffer()
 }
 void Device::Present()
 {
-	//SDL_UpdateTexture(ScreenTexture, NULL, BackBuffer, Width << 2);
-	//SDL_RenderCopy(Renderer, ScreenTexture, NULL, NULL);
-	//SDL_RenderPresent(Renderer);
 	//memset(BackBuffer, COLOR_RED, Width * Height);
 	memcpy(framebuffer->buf, BackBuffer, Width * Height * sizeof(lv_color_t));
 	lv_vdb_flush();
@@ -76,6 +71,7 @@ void Device::Present()
 string Device::getTitle()
 {
 	//return string(SDL_GetWindowTitle(Window));
+	return "";
 }
 int32 Device::getWidth()
 {

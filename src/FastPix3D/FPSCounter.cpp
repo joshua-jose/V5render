@@ -7,7 +7,7 @@ FPSCounter::FPSCounter()
 	FPSCount = 0;
 	FrameTime = 0;
 	MedianFrameTime = 0;
-	LastMeasuredTime = clock();
+	LastMeasuredTime = (int32)pros::millis();
 }
 FPSCounter::FPSCounter(int32 interval)
 {
@@ -16,12 +16,12 @@ FPSCounter::FPSCounter(int32 interval)
 	FPSCount = 0;
 	FrameTime = 0;
 	MedianFrameTime = 0;
-	LastMeasuredTime = clock();
+	LastMeasuredTime = (int32)pros::millis();
 }
 
 void FPSCounter::Frame()
 {
-	clock_t time = clock();
+	int32 time = (int32)pros::millis();
 	if (time - LastMeasuredTime > Interval)
 	{
 		FPS = FPSCount * 1000 / Interval;

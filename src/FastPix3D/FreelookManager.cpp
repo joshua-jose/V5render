@@ -43,14 +43,14 @@ Matrix FreelookManager::Update()
 	float speed = (time - OldTime) * Speed * .003f * (Input::getKeyDown(DIGITAL_L1) + 1);
 	OldTime = time;
 
-	int32 walkX = Input::getKeyDown(DIGITAL_L1) - Input::getKeyDown(DIGITAL_L1);
-	int32 walkZ = Input::getKeyDown(DIGITAL_L1) - Input::getKeyDown(DIGITAL_L1);
+	int32 walkX = Input::getJoyXSpeed(1);
+	int32 walkZ = Input::getJoyYSpeed(1);
 
 	Matrix walkMatrix = Matrix::Translate(Vector3f(-walkX * speed, 0, -walkZ * speed)) * Matrix::RotateX(-Rotation.X) * Matrix::RotateY(-Rotation.Y);
 	Translation = (Translation + walkMatrix * Vector3f()) * .8f;
 	Position += Translation;
 
-	RotationTranslation = (RotationTranslation - Vector3f(Input::getMouseYSpeed() * .1f, Input::getMouseXSpeed() * .1f, 0)) * .75f;
+	RotationTranslation = (RotationTranslation - Vector3f(Input::getJoyYSpeed(0) * -.01f, Input::getJoyXSpeed(0) * .01f, 0)) * .75f;
 	Rotation += RotationTranslation;
 	Rotation.X = min(90.0f, max(-90.0f, Rotation.X));
 

@@ -20,7 +20,6 @@ Mesh* Mesh::FromFile(string path)
 		if (texturePath != "")
 		{
 			texturePath = Path::Combine(Path::GetDirectoryName(path), texturePath);
-			fprintf(stderr,"\n%s\n",texturePath.c_str());
 			pros::delay(20);
 			if (File::Exists(texturePath)) subset->AppliedTexture = new Texture(texturePath);
 		}

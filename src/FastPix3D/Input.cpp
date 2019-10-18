@@ -1,140 +1,79 @@
 #include "FastPix3D.h"
+#include "main.h"
 
-bool Input::Quit;
-int32 Input::MouseX;
-int32 Input::MouseY;
-int32 Input::MouseZ;
-int32 Input::MouseXSpeed;
-int32 Input::MouseYSpeed;
-int32 Input::MouseZSpeed;
-bool *Input::MouseDown;
-bool *Input::KeyDown;
+int32 Input::JoyX[2];
+int32 Input::JoyY[2];
+int32 Input::JoyXSpeed[2];
+int32 Input::JoyYSpeed[2];
 
-void Input::Initialize()
-{
-	MouseDown = new bool[3];
-	KeyDown = new bool[2048];
-	memset(MouseDown, 0, 3);
-	memset(KeyDown, 0, 2048);
+pros::controller_digital_e_t buttons[12] = { DIGITAL_L1, DIGITAL_L2,
+		DIGITAL_R1, DIGITAL_R2, DIGITAL_UP, DIGITAL_DOWN, DIGITAL_LEFT,
+		DIGITAL_RIGHT, DIGITAL_X, DIGITAL_Y, DIGITAL_A, DIGITAL_B };
+
+std::map<pros::controller_digital_e_t,bool> Input::KeyDown;
+
+
+
+void Input::Initialize(){
 }
-void Input::Destroy()
-{
-	delete[] MouseDown;
-	delete[] KeyDown;
-}
+void Input::Destroy(){}
 
 void Input::Clear()
 {
 	//SDL_Event e;
 	//while (SDL_PollEvent(&e));
 }
-void Input::Update()
-{
-	MouseXSpeed = 0;
-	MouseYSpeed = 0;
-	MouseZSpeed = 0;
 
-	//SDL_Event e;
-	int32 key;
+void Input::Update(int32 dt)
+{
   /*
-	while (SDL_PollEvent(&e))
-	{
-		switch (e.type)
-		{
-			case SDL_QUIT:
-				Quit = true;
-				break;
-			case SDL_MOUSEBUTTONDOWN:
-				switch (e.button.button)
-				{
-					case SDL_BUTTON_LEFT: MouseDown[0] = true; break;
-					case SDL_BUTTON_RIGHT: MouseDown[1] = true; break;
-					case SDL_BUTTON_MIDDLE: MouseDown[2] = true; break;
-				}
-				break;
-			case SDL_MOUSEBUTTONUP:
-				switch (e.button.button)
-				{
-					case SDL_BUTTON_LEFT: MouseDown[0] = false; break;
-					case SDL_BUTTON_RIGHT: MouseDown[1] = false; break;
-					case SDL_BUTTON_MIDDLE: MouseDown[2] = false; break;
-				}
-				break;
-			case SDL_MOUSEMOTION:
-				MouseX = e.motion.x;
-				MouseY = e.motion.y;
-				MouseXSpeed += e.motion.xrel;
-				MouseYSpeed += e.motion.yrel;
-				break;
-			case SDL_MOUSEWHEEL:
-				MouseZ += e.wheel.y;
-				MouseZSpeed = e.wheel.y;
-				break;
-			case SDL_KEYDOWN:
-				key = e.key.keysym.sym;
-				if ((key & SDLK_SCANCODE_MASK) == SDLK_SCANCODE_MASK) key += 1024 - SDLK_SCANCODE_MASK;
-				if (key < 2048) KeyDown[key] = true;
-				break;
-			case SDL_KEYUP:
-				key = e.key.keysym.sym;
-				if ((key & SDLK_SCANCODE_MASK) == SDLK_SCANCODE_MASK) key += 1024 - SDLK_SCANCODE_MASK;
-				if (key < 2048) KeyDown[key] = false;
-				break;
-		}
+	for (int i = 0; i<1;i++){
+		JoyXSpeed[i] = 0;
+		JoyYSpeed[i] = 0;
 	}
-	*/
+  */
+	for (pros::controller_digital_e_t button: buttons){
+
+		KeyDown[button] = (bool)pros::c::controller_get_digital(pros::E_CONTROLLER_MASTER, button);
+	}
+  JoyXSpeed[0] = pros::c::controller_get_analog(pros::E_CONTROLLER_MASTER,pros::E_CONTROLLER_ANALOG_LEFT_X);
+  JoyXSpeed[1] = pros::c::controller_get_analog(pros::E_CONTROLLER_MASTER,pros::E_CONTROLLER_ANALOG_RIGHT_X);
+  JoyYSpeed[0] = pros::c::controller_get_analog(pros::E_CONTROLLER_MASTER,pros::E_CONTROLLER_ANALOG_LEFT_Y);
+  JoyYSpeed[1] = pros::c::controller_get_analog(pros::E_CONTROLLER_MASTER,pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+
+	JoyX[0] = JoyXSpeed[0] * dt;
+	JoyX[1] = JoyXSpeed[1] * dt;
+	JoyY[0] = JoyYSpeed[0] * dt;
+	JoyY[1] = JoyYSpeed[1] * dt;
+
 }
 
-bool Input::getQuit()
+void Input::setJoyPosition(int32 x, int32 y, int32 joy, bool updateMouseSpeed)
 {
-	return Quit;
-}
-int32 Input::getMouseX()
-{
-	return MouseX;
-}
-int32 Input::getMouseY()
-{
-	return MouseY;
-}
-int32 Input::getMouseZ()
-{
-	return MouseZ;
-}
-int32 Input::getMouseXSpeed()
-{
-	return MouseXSpeed;
-}
-int32 Input::getMouseYSpeed()
-{
-	return MouseYSpeed;
-}
-int32 Input::getMouseZSpeed()
-{
-	return MouseZSpeed;
-}
-bool Input::getMouseDown(pros::controller_digital_e_t mouseButton)
-{
-	//return MouseDown[int32(mouseButton)];
-	return false;
-}
-bool Input::getKeyDown(pros::controller_digital_e_t key)
-{
-	//if ((key & SDLK_SCANCODE_MASK) == SDLK_SCANCODE_MASK) key += 1024 - SDLK_SCANCODE_MASK;
-	//return KeyDown[key];
-	return false;
-}
 
-void Input::setMousePosition(int32 x, int32 y, bool updateMouseSpeed)
-{
-	/*
 	if (updateMouseSpeed)
 	{
-		MouseXSpeed += MouseX - x;
-		MouseYSpeed += MouseY - y;
+		JoyXSpeed[joy] += JoyX[joy] - x;
+		JoyYSpeed[joy] += JoyY[joy] - y;
 	}
-	MouseX = x;
-	MouseY = y;
-	*/
-	//SDL_WarpMouseInWindow(Device::Window, x, y);
+	JoyX[joy] = x;
+	JoyY[joy] = y;
+
 }
+
+int32 Input::getJoyX(int32 joy){
+	return JoyX[joy];
+};
+int32 Input::getJoyY(int32 joy){
+	return JoyY[joy];
+};
+int32 Input::getJoyXSpeed(int32 joy){
+	return JoyXSpeed[joy];
+};
+int32 Input::getJoyYSpeed(int32 joy){
+	return JoyYSpeed[joy];
+};
+
+bool Input::getKeyDown(pros::controller_digital_e_t key){
+	return KeyDown[key];
+};

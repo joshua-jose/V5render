@@ -2,7 +2,7 @@ class  FPSCounter
 {
 private:
 	int32 Interval, FPS, FPSCount, FrameTime, MedianFrameTime;
-	clock_t LastMeasuredTime, LastFrame;
+	int32 LastMeasuredTime, LastFrame;
 public:
 	FPSCounter();
 	FPSCounter(int32 interval);
