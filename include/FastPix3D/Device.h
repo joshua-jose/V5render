@@ -10,7 +10,6 @@ private:
 	static sbyte *StencilBuffer;
 public:
 	static void Initialize(int32 width, int32 height);
-	static void Initialize(lv_obj_t* parent,int32 width, int32 height);
 	static void Destroy();
 
 	static void ClearBackBuffer();
