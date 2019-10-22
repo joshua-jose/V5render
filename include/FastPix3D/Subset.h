@@ -4,7 +4,7 @@ private:
 	int32 VertexCount, TriangleCount;
 
 
-	Texture *AppliedTexture;
+
 public:
 	Subset(int32 vertexCount, int32 triangleCount);
 	~Subset();
@@ -15,6 +15,7 @@ public:
 	Triangle* getTriangleBuffer();
 	Texture* getTexture();
 	Triangle *Triangles;
+	Texture *AppliedTexture;
 
 	friend class Mesh;
 };

@@ -23,7 +23,6 @@ void Input::Clear()
 	//SDL_Event e;
 	//while (SDL_PollEvent(&e));
 }
-
 void Input::Update(int32 dt)
 {
   /*
@@ -32,6 +31,7 @@ void Input::Update(int32 dt)
 		JoyYSpeed[i] = 0;
 	}
   */
+
 	for (pros::controller_digital_e_t button: buttons){
 
 		KeyDown[button] = (bool)pros::c::controller_get_digital(pros::E_CONTROLLER_MASTER, button);

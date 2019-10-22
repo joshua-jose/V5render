@@ -62,6 +62,38 @@ Texture::Texture(string path)
 	WidthExponent = GetExponent(Width);
 
 }
+//create an empty texture
+Texture::Texture(int width, int height){
+	Width = width, Height=height;
+	Buffer = new int32[width*height];
+	memset(Buffer,6579300,width*height*sizeof(int32));
+	WidthExponent = GetExponent(Width);
+}
+
+Texture::Texture(int32* image, int width, int height){
+	Buffer = new int32[width*height];
+	Width = (int32)width, Height = (int32)height;
+	int32 width2 = GetLogarithmicCeiling(Width), height2 = GetLogarithmicCeiling(Height);
+	if (Width == width2 && Height == height2)
+	{
+		memcpy(Buffer, image, Width * Height * 4);
+	}
+	else
+	{
+		int32 *pixels = (int32*)image;
+		for (int32 y = 0, *buffer = Buffer; y < height2; y++)
+		{
+			for (int32 x = 0; x < width2; x++)
+			{
+				*buffer++ = pixels[x * Width / width2 + y * Height / height2 * Width];
+			}
+		}
+		Width = width2;
+		Height = height2;
+	}
+	WidthExponent = GetExponent(Width);
+}
+
 Texture::~Texture()
 {
 	delete[] Buffer;

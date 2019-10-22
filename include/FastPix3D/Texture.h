@@ -1,3 +1,4 @@
+#include <vector>
 class Texture
 {
 private:
@@ -9,6 +10,8 @@ private:
 	static int32 GetExponent(int32 number);
 public:
 	Texture(string path);
+	Texture(int width, int height);
+	Texture(int32* image, int width, int height);
 	~Texture();
 	int32 Width, Height, WidthExponent;
 

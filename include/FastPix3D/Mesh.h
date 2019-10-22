@@ -2,10 +2,11 @@ class Mesh
 {
 private:
 
-	Subset **Subsets;
+
 public:
 	static Mesh* FromFile(string path);
 	int32 SubsetCount;
+	Subset **Subsets;
 
 	Mesh(int32 subsetCount);
 	~Mesh();
