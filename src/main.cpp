@@ -14,6 +14,8 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+ 
+
 
 void initialize() {
     //framebuffer = lv_vdb_get();
@@ -191,3 +193,66 @@ void opcontrol() {
     Device::Destroy();
     */
 }
+
+#ifdef THREADS_STD
+int main(int argv, char** args){
+	
+    printf("start\n");
+    pros::delay(10);
+    Device::Initialize(480, 360);
+
+    RenderStates::ClipNear = 1.0f;
+    RenderStates::Zoom = 2;
+
+    //FPSCounter* fpsCounter = new FPSCounter(20);
+    FreelookManager *freelookManager = new FreelookManager(Vector3f(0, 0, 20), Vector3f(-20, -30, 0));
+
+    Mesh* gear1 = Mesh::FromFile("Media/Meshes/Gear1.fp3d");
+    Mesh* gear2 = Mesh::FromFile("Media/Meshes/Gear2.fp3d");
+    Mesh* gear3 = Mesh::FromFile("Media/Meshes/Gear3.fp3d");
+
+
+    RenderStates::CameraSpace = Matrix::RotateY(-30) * Matrix::RotateX(-20) * Matrix::Translate(Vector3f(0, 0, 20));
+	SDL_Event evt;
+	bool programrunning = true;
+	SDL_PumpEvents();
+    while (programrunning) {
+		std::uint32_t time = pros::millis();
+		Input::Update(time);
+		while( SDL_PollEvent(&evt) ){
+			switch(evt.type){
+			case SDL_QUIT:  
+			programrunning = false;   
+			break;
+			}
+		}
+		
+		
+        Device::ClearBackBuffer(Color(0,0,0));
+		Device::ClearDepthBuffer();
+		Device::ClearStencilBuffer();
+
+		RenderStates::CameraSpace = freelookManager->Update();
+		RenderStates::cullMode = CullMode::Back;
+
+        gear1->Draw(Matrix::RotateX(-90) * Matrix::RotateZ(time * 0.02) * Matrix::Translate(Vector3f(-3, -2, 0)));
+        gear2->Draw(Matrix::RotateX(-90) * Matrix::RotateZ(time * 0.02 * -2 + 25) * Matrix::Translate(Vector3f(3.1f, -2, 0)));
+        gear3->Draw(Matrix::RotateX(-90) * Matrix::RotateZ(time * 0.02 * -2 + 10) * Matrix::Translate(Vector3f(-3.1f, 4.1f, 0)));
+
+
+        //Examples::DrawRenderingInformation(font, fpsCounter, gear1->getTriangleCount() + gear2->getTriangleCount() + gear3->getTriangleCount(), false);
+        //Graphics::FillRectangle(0, 0, LV_HOR_RES, LV_VER_RES, Color(255, 0, 0), 1.0f);
+        Device::Present();
+
+        
+    }
+
+    //delete fpsCounter;
+    //delete gear1, gear2, gear3;
+
+    Device::Destroy();
+    
+	initialize();
+	opcontrol();
+}
+#endif

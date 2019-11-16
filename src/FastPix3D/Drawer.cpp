@@ -311,9 +311,9 @@ void Drawer::DrawClippedTriangle(ProcessedVertex vertex1, ProcessedVertex vertex
 		vertex3.B *= vertex3.Position.Z;
 	}
 
-	int32 v1y = min(max(vertex1.ProjectedPosition.Y, (long int)0), Device::Height - 1);
-	int32 v2y = min(max(vertex2.ProjectedPosition.Y, (long int)0), Device::Height - 1);
-	int32 v3y = min(max(vertex3.ProjectedPosition.Y, (long int)0), Device::Height - 1);
+	int32 v1y = min(max(vertex1.ProjectedPosition.Y, (int32_t)0), Device::Height - 1);
+	int32 v2y = min(max(vertex2.ProjectedPosition.Y, (int32_t)0), Device::Height - 1);
+	int32 v3y = min(max(vertex3.ProjectedPosition.Y, (int32_t)0), Device::Height - 1);
 
 	if (vertex1.ProjectedPosition.Y < Device::Height && vertex2.ProjectedPosition.Y >= 0 || vertex2.ProjectedPosition.Y < Device::Height && vertex3.ProjectedPosition.Y >= 0)
 	{

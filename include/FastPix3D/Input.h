@@ -9,8 +9,6 @@ private:
 	static int32 JoyXSpeed[2];
 	static int32 JoyYSpeed[2];
 
-	static std::map<pros::controller_digital_e_t,bool> KeyDown;
-
 	static void Initialize();
 	static void Destroy();
 public:
