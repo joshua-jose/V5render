@@ -8,13 +8,10 @@ include_directories(include/FastPix3D)
 include_directories(pcbuild)
 include_directories(include)
 
-
-#add_library(SDL2 STATIC pcbuild/SDL2.lib pcbuild/SDL2_image.lib pcbuild/SDL2main.lib)
-#SET_TARGET_PROPERTIES(SDL2 PROPERTIES LINKER_LANGUAGE CXX)
 link_directories("pcbuild")
 
 
-add_executable(V5render
+add_library(V5render STATIC
 	pcbuild/api.cpp
 	
 	include/FastPix3D/FastPix3D.h  
@@ -81,6 +78,7 @@ add_executable(V5render
 	src/FastPix3D/Vector3f.cpp
 	src/main.cpp
 	)
+set_target_properties(V5render PROPERTIES PUBLIC_HEADER include/FastPix3D)
 target_link_libraries(V5render SDL2main SDL2 SDL2_image )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/pcbuild/SDL2.dll

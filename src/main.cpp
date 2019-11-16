@@ -14,7 +14,7 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
- 
+
 
 
 void initialize() {
@@ -196,7 +196,7 @@ void opcontrol() {
 
 #ifdef THREADS_STD
 int main(int argv, char** args){
-	
+
     printf("start\n");
     pros::delay(10);
     Device::Initialize(480, 360);
@@ -216,18 +216,20 @@ int main(int argv, char** args){
 	SDL_Event evt;
 	bool programrunning = true;
 	SDL_PumpEvents();
-    while (programrunning) {
-		std::uint32_t time = pros::millis();
+  std::uint32_t last_time = pros::millis();
+  while (programrunning) {
+    std::uint32_t time = pros::millis() - last_time;
+    last_time = pros::millis();
 		Input::Update(time);
 		while( SDL_PollEvent(&evt) ){
 			switch(evt.type){
-			case SDL_QUIT:  
-			programrunning = false;   
+			case SDL_QUIT:
+			programrunning = false;
 			break;
 			}
 		}
-		
-		
+
+
         Device::ClearBackBuffer(Color(0,0,0));
 		Device::ClearDepthBuffer();
 		Device::ClearStencilBuffer();
@@ -244,14 +246,14 @@ int main(int argv, char** args){
         //Graphics::FillRectangle(0, 0, LV_HOR_RES, LV_VER_RES, Color(255, 0, 0), 1.0f);
         Device::Present();
 
-        
+
     }
 
     //delete fpsCounter;
     //delete gear1, gear2, gear3;
 
     Device::Destroy();
-    
+
 	initialize();
 	opcontrol();
 }

@@ -8,7 +8,7 @@ private:
 	static int32 JoyY[2];
 	static int32 JoyXSpeed[2];
 	static int32 JoyYSpeed[2];
-
+	
 	static void Initialize();
 	static void Destroy();
 public:

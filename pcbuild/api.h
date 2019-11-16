@@ -20,7 +20,7 @@ typedef enum {
 } controller_analog_e_t;
 
 typedef enum {
-	E_CONTROLLER_DIGITAL_L1 = 6,
+	E_CONTROLLER_DIGITAL_L1 = 0,
 	E_CONTROLLER_DIGITAL_L2,
 	E_CONTROLLER_DIGITAL_R1,
 	E_CONTROLLER_DIGITAL_R2,
