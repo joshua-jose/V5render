@@ -4,17 +4,19 @@
 
 const Uint8 *keys;
 
-namespace pros{
-std::uint32_t millis(){
+std::uint32_t pros::millis(){
 	milliseconds ms = duration_cast< milliseconds >(
     system_clock::now().time_since_epoch()
 	);
 	return static_cast<std::uint32_t>(ms.count());
 }
 
-void delay(const std::uint32_t milliseconds){
+void pros::delay(const std::uint32_t milliseconds){
 	std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
+
+namespace pros{
+
 
 namespace c{
 	int32_t controller_get_analog(controller_id_e_t id, controller_analog_e_t channel){
@@ -23,7 +25,7 @@ namespace c{
 		if(keys[SDL_SCANCODE_S] && channel == pros::E_CONTROLLER_ANALOG_RIGHT_Y) return -5;
 		if(keys[SDL_SCANCODE_A] && channel == pros::E_CONTROLLER_ANALOG_RIGHT_X) return -5;
 		if(keys[SDL_SCANCODE_D] && channel == pros::E_CONTROLLER_ANALOG_RIGHT_X) return 5;
-		
+
 		if(keys[SDL_SCANCODE_I] && channel == pros::E_CONTROLLER_ANALOG_LEFT_Y) return 5;
 		if(keys[SDL_SCANCODE_K] && channel == pros::E_CONTROLLER_ANALOG_LEFT_Y) return -5;
 		if(keys[SDL_SCANCODE_J] && channel == pros::E_CONTROLLER_ANALOG_LEFT_X) return -5;

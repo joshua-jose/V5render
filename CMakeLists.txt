@@ -13,70 +13,69 @@ link_directories("pcbuild")
 
 add_library(V5render STATIC
 	pcbuild/api.cpp
-	
-	include/FastPix3D/FastPix3D.h  
-	include/FastPix3D/Color.h    
-	include/FastPix3D/CullMode.h  
-	include/FastPix3D/Directory.h  
-	include/FastPix3D/Font.h        
-	include/FastPix3D/FreelookManager.h  
-	include/FastPix3D/Input.h  
-	include/FastPix3D/LightType.h  
-	include/FastPix3D/MathUtility.h  
-	include/FastPix3D/Mesh.h         
-	include/FastPix3D/Path.h   
-	include/FastPix3D/ProcessedVertex.h  
-	include/FastPix3D/SeekOrigin.h      
-	include/FastPix3D/ShadowVolume.h  
-	include/FastPix3D/Texture.h   
-	include/FastPix3D/Vector2f.h  
+
+	include/FastPix3D/FastPix3D.h
+	include/FastPix3D/Color.h
+	include/FastPix3D/CullMode.h
+	include/FastPix3D/Directory.h
+	include/FastPix3D/Font.h
+	include/FastPix3D/FreelookManager.h
+	include/FastPix3D/Input.h
+	include/FastPix3D/LightType.h
+	include/FastPix3D/MathUtility.h
+	include/FastPix3D/Mesh.h
+	include/FastPix3D/Path.h
+	include/FastPix3D/ProcessedVertex.h
+	include/FastPix3D/SeekOrigin.h
+	include/FastPix3D/ShadowVolume.h
+	include/FastPix3D/Texture.h
+	include/FastPix3D/Vector2f.h
 	include/FastPix3D/Vertex.h
-	include/FastPix3D/Convert.h  
-	include/FastPix3D/Device.h    
-	include/FastPix3D/Drawer.h     
-	include/FastPix3D/File.h       
-	include/FastPix3D/FPSCounter.h  
-	include/FastPix3D/Graphics.h         
-	include/FastPix3D/Light.h  
-	include/FastPix3D/lodepng.h    
-	include/FastPix3D/Matrix.h       
-	include/FastPix3D/MouseButton.h  
-	include/FastPix3D/Point.h  
-	include/FastPix3D/RenderStates.h     
-	include/FastPix3D/ShadowTriangle.h  
-	include/FastPix3D/Subset.h        
-	include/FastPix3D/Triangle.h  
+	include/FastPix3D/Convert.h
+	include/FastPix3D/Device.h
+	include/FastPix3D/Drawer.h
+	include/FastPix3D/File.h
+	include/FastPix3D/FPSCounter.h
+	include/FastPix3D/Graphics.h
+	include/FastPix3D/Light.h
+	include/FastPix3D/lodepng.h
+	include/FastPix3D/Matrix.h
+	include/FastPix3D/MouseButton.h
+	include/FastPix3D/Point.h
+	include/FastPix3D/RenderStates.h
+	include/FastPix3D/ShadowTriangle.h
+	include/FastPix3D/Subset.h
+	include/FastPix3D/Triangle.h
 	include/FastPix3D/Vector3f.h
-	
-	src/FastPix3D/Color.cpp  
-	src/FastPix3D/Directory.cpp  
-	src/FastPix3D/Font.cpp        
-	src/FastPix3D/FreelookManager.cpp  
-	src/FastPix3D/Input.cpp  
-	src/FastPix3D/MathUtility.cpp  
-	src/FastPix3D/Mesh.cpp         
-	src/FastPix3D/Path.cpp   
-	src/FastPix3D/ProcessedVertex.cpp   
-	src/FastPix3D/ShadowVolume.cpp  
-	src/FastPix3D/Texture.cpp   
-	src/FastPix3D/Vector2f.cpp  
+
+	src/FastPix3D/Color.cpp
+	src/FastPix3D/Directory.cpp
+	src/FastPix3D/Font.cpp
+	src/FastPix3D/FreelookManager.cpp
+	src/FastPix3D/Input.cpp
+	src/FastPix3D/MathUtility.cpp
+	src/FastPix3D/Mesh.cpp
+	src/FastPix3D/Path.cpp
+	src/FastPix3D/ProcessedVertex.cpp
+	src/FastPix3D/ShadowVolume.cpp
+	src/FastPix3D/Texture.cpp
+	src/FastPix3D/Vector2f.cpp
 	src/FastPix3D/Vertex.cpp
-	src/FastPix3D/Convert.cpp  
-	src/FastPix3D/Device.cpp    
-	src/FastPix3D/Drawer.cpp     
-	src/FastPix3D/File.cpp       
-	src/FastPix3D/FPSCounter.cpp  
-	src/FastPix3D/Graphics.cpp         
-	src/FastPix3D/Light.cpp  
-	src/FastPix3D/lodepng.cpp    
-	src/FastPix3D/Matrix.cpp       
-	src/FastPix3D/Point.cpp  
-	src/FastPix3D/RenderStates.cpp     
-	src/FastPix3D/ShadowTriangle.cpp  
-	src/FastPix3D/Subset.cpp        
-	src/FastPix3D/Triangle.cpp  
+	src/FastPix3D/Convert.cpp
+	src/FastPix3D/Device.cpp
+	src/FastPix3D/Drawer.cpp
+	src/FastPix3D/File.cpp
+	src/FastPix3D/FPSCounter.cpp
+	src/FastPix3D/Graphics.cpp
+	src/FastPix3D/Light.cpp
+	src/FastPix3D/lodepng.cpp
+	src/FastPix3D/Matrix.cpp
+	src/FastPix3D/Point.cpp
+	src/FastPix3D/RenderStates.cpp
+	src/FastPix3D/ShadowTriangle.cpp
+	src/FastPix3D/Subset.cpp
+	src/FastPix3D/Triangle.cpp
 	src/FastPix3D/Vector3f.cpp
-	src/main.cpp
 	)
 set_target_properties(V5render PROPERTIES PUBLIC_HEADER include/FastPix3D)
 target_link_libraries(V5render SDL2main SDL2 SDL2_image )
@@ -85,5 +84,5 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/pcbuild/SDL2.dll
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/pcbuild/SDL2_image.dll
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-	 
+
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Media DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
