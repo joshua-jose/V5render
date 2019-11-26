@@ -9,9 +9,9 @@ sbyte *Device::StencilBuffer;
 #include <cstring>
 // Change device if we are on PC
 #ifdef THREADS_STD
-SDL_Window *Device::Window;
-SDL_Renderer *Device::Renderer;
-SDL_Texture *Device::ScreenTexture;
+SDL_Window *Window;
+SDL_Renderer *Renderer;
+SDL_Texture *ScreenTexture;
 
 void Device::setTitle(string title)
 {
@@ -54,7 +54,7 @@ void Device::Present(){
 }
 
 #else
-	
+
 lv_vdb_t *framebuffer;
 void Device::Initialize(int32 width, int32 height){
 	Width = width;
@@ -131,5 +131,3 @@ int32 Device::getHeight()
 {
 	return Height;
 }
-
-
