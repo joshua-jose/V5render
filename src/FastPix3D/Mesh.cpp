@@ -90,10 +90,25 @@ void Mesh::Draw(Matrix modelSpace)
 		for (int32 a = 0; a < subset->TriangleCount; a++)
 		{
 			Triangle triangle = subset->Triangles[a];
-			Drawer::DrawTriangle(modelSpace, *triangle.Vertex1, *triangle.Vertex2, *triangle.Vertex3);
+			Drawer::DrawTriangle(modelSpace, *triangle.Vertex1, *triangle.Vertex2, *triangle.Vertex3, true);
 		}
 	}
 }
+
+void Mesh::Draw()
+{
+	for (int32 i = 0; i < SubsetCount; i++)
+	{
+		Subset *subset = Subsets[i];
+		RenderStates::CurrentTexture = subset->AppliedTexture;
+		for (int32 a = 0; a < subset->TriangleCount; a++)
+		{
+			Triangle triangle = subset->Triangles[a];
+			Drawer::DrawTriangle(Matrix::Identity(), *triangle.Vertex1, *triangle.Vertex2, *triangle.Vertex3, false);
+		}
+	}
+}
+
 void Mesh::TransformVertices(Matrix matrix)
 {
 	for (int32 i = 0; i < SubsetCount; i++)

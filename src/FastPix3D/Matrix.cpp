@@ -10,6 +10,7 @@ Matrix Matrix::Identity()
 	m.ResetRotation();
 	return m;
 }
+
 Matrix Matrix::Scale(Vector3f size)
 {
 	Matrix m;

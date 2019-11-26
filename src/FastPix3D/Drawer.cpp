@@ -20,9 +20,13 @@ void Drawer::Initialize()
 	IsStencilTriangle = false;
 }
 
-void Drawer::DrawTriangle(Matrix modelSpace, Vertex vertex1, Vertex vertex2, Vertex vertex3)
+void Drawer::DrawTriangle(Matrix modelSpace, Vertex vertex1, Vertex vertex2, Vertex vertex3, bool multiply)
 {
-	Matrix worldSpace = modelSpace * RenderStates::CameraSpace;
+	Matrix worldSpace = RenderStates::CameraSpace;
+	worldSpace.Values[12] = 0; worldSpace.Values[13] =0; worldSpace.Values[14] = 0;
+	if (multiply){
+		worldSpace = modelSpace * RenderStates::CameraSpace;
+	}
 	ProcessedVertex v1 = (ProcessedVertex)vertex1;
 	ProcessedVertex v2 = (ProcessedVertex)vertex2;
 	ProcessedVertex v3 = (ProcessedVertex)vertex3;
